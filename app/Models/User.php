@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'type',
     ];
 
     /**
@@ -40,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+    public function wishes()
+    {
+        return $this->hasMany(Wish::class);
+    }
+    public function appsComoDeveloper()
+    {
+        return $this->hasMany(App::class, 'developer');
+    }
 }

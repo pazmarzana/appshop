@@ -35,10 +35,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <a class="p-2" href="http://appshop.com.devel/apps">apps generico</a>
-                        <a class="p-2" href="http://appshop.com.devel/me/apps">apps</a> <br> 
-
-                        <a class="p-2" href="http://appshop.com.devel/me/apps/show/{app}">apps - show</a> <br> 
+                        <a class="p-2" href="http://appshop.com.devel/apps">Apps</a>
+                        @guest
+                        @else
+                            @if ( Auth::user()->type ==0)
+                                <a class="p-2" href="http://appshop.com.devel/me/apps">Apps Panel de Control</a>  
+                            @endif    
+                            @if ( Auth::user()->type ==1)
+                                <a class="p-2" href="http://appshop.com.devel/me/apps">Apps Adquiridas</a>  
+                                <a class="p-2" href="{{ route('listarcategorias') }}">Categorias</a>  
+                            @endif
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->

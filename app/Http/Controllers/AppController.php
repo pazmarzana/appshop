@@ -6,6 +6,7 @@ use App\Models\App;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AppController extends Controller
 {
@@ -21,7 +22,17 @@ class AppController extends Controller
             $apps = $user->appsComoDeveloper()->orderBy('id', 'DESC')->get();
             return view('index', compact('apps'));
         } elseif ($user->type == 1) {
-            $apps = App::orderBy('id', 'DESC')->get();
+            // $apps = App::orderBy('id', 'DESC')->get();
+
+
+            $apps = DB::table('apps')
+                ->join('purchases', 'apps.id', '=', 'purchases.app_id')
+                //agrego alias a los id que se repiten porque si no Laravel tapa los valores de los otros id
+                ->select('apps.id as id', 'apps.name as name', 'price', 'image_path', 'developer')
+                ->where('purchases.user_id', '=', $user->id)
+                ->orderBy('apps.id', 'DESC')
+                ->get();
+
             $categories = Category::orderBy('name', 'ASC')->get();
             return view('indexcliente', compact('apps', 'categories'));
         } else {
@@ -96,6 +107,8 @@ class AppController extends Controller
     {
         $user = Auth::user();
         if ($user->type == 0) {
+            return view('show', compact('app'));
+        } elseif ($user->type == 1) {
             return view('show', compact('app'));
         } else {
             return back();
@@ -187,5 +200,41 @@ class AppController extends Controller
         // $apps = App::orderBy('name', 'ASC')->get();
         $apps = App::orderBy('id', 'DESC')->get();
         return view('list', compact('apps'));
+    }
+
+
+    public function listarcategorias()
+    {
+        $user = Auth::user();
+        if ($user->type == 1) {
+            $categories = Category::orderBy('name', 'ASC')->get();
+            return view('listarcategorias', compact('categories'));
+        } else {
+            return back();
+        }
+    }
+
+
+    public function listarxcategoria($id)
+    {
+        $user = Auth::user();
+        if ($user->type == 1) {
+            // $categoria = Category::findOrFail($id);
+            // $apps = App::where('category', $categoria)->purchases()->orderBy('id', 'DESC')->get();
+            // $apps = App::where('category_id', $id)->orderBy('id', 'DESC')->get();
+
+            $apps = DB::table('apps')
+                ->join('purchases', 'apps.id', '=', 'purchases.app_id')
+                //agrego alias a los id que se repiten porque si no Laravel tapa los valores de los otros id
+                ->select('apps.id as appId', 'apps.name as appName', 'price', 'image_path', 'developer')
+                ->where('apps.category_id', '=', $id)
+                ->where('purchases.user_id', '=', $user->id)
+                ->orderBy('apps.id', 'DESC')
+                ->get();
+
+            return view('xcategoria', compact('apps'));
+        } else {
+            return back();
+        }
     }
 }

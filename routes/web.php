@@ -25,3 +25,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/me/apps', 'App\Http\Controllers\AppController');
 
 Route::get('/apps', [AppController::class, 'list'])->name('list');
+Route::get('/apps/categories', [AppController::class, 'listarcategorias'])->name('listarcategorias');
+Route::get('/apps/categories/{id}', [AppController::class, 'listarxcategoria'])->name('listarxcategoria');
+// 

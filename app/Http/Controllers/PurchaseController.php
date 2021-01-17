@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Purchase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
@@ -14,7 +15,8 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        //
+        $purchases = Purchase::all();
+        return $purchases;
     }
 
     /**
@@ -35,7 +37,15 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $purchase = Purchase::create($request->all());
+        // $user = Auth::user();
+        $purchase = new Purchase();
+        // $purchase->user_id = $user->id;
+        //despues cambiar esto
+        $purchase->user_id = 3;
+        $purchase->app_id = $request->app_id;
+        $purchase->save();
+        return $purchase;
     }
 
     /**

@@ -9,6 +9,12 @@ class Wish extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'user_id',
+        'app_id',
+    ];
+
 
     public function posiblecomprador()
     {

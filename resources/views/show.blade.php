@@ -16,7 +16,7 @@
                 </p>
                 <div class="d-flex flex-wrap justify-content-center col-12">
                 @if($app->developer != Auth::user()->id )
-                    <button type="button" class="btn btn-primary  btn-sm m-1 col-8">
+                    <button type="button" onClick="postData({{ $app->id }})" class="btn btn-primary  btn-sm m-1 col-8">
                         Comprar!
                     </button>
                     <button type="button" class="btn btn-primary  btn-sm m-1 col-8">
@@ -31,3 +31,30 @@
     </div>
 </div>
 @endsection
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+// (()=>{
+
+    async function postData($id){
+        try{
+            let res= await axios.post("http://appshop.com.devel/api/buy", 
+            {
+            app_id: $id
+            }),
+            json= await res.data; 
+            console.log(res,json);
+
+
+
+        }catch(err){
+        console.log("estoy en el catch", err);
+        console.log("estoy en el catch", err.response);
+
+        }finally{
+            console.log("esto se ejecuta siempre");
+        }
+
+    };
+    //postData();
+// })();
+</script>

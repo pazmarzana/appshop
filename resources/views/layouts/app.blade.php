@@ -18,7 +18,6 @@
     <script src="https://kit.fontawesome.com/47aca0d288.js" crossorigin="anonymous"></script>
 
     <!-- Styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -35,15 +34,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <a class="p-2" href="http://appshop.com.devel/apps">Apps</a>
                         @guest
+                        <a class="p-2" href="http://appshop.com.devel/apps">Apps</a>
+                        <a class="p-2" href="{{ route('listarcategorias') }}">Categorias</a>  
                         @else
                             @if ( Auth::user()->type ==0)
-                                <a class="p-2" href="http://appshop.com.devel/me/apps">Apps Panel de Control</a>  
+                                {{-- <a class="p-2" href="http://appshop.com.devel/me/apps">Apps Panel de Control</a>   --}}
                             @endif    
                             @if ( Auth::user()->type ==1)
-                                <a class="p-2" href="http://appshop.com.devel/me/apps">Apps Adquiridas</a>  
+                                <a class="p-2" href="http://appshop.com.devel/apps">Apps</a>
                                 <a class="p-2" href="{{ route('listarcategorias') }}">Categorias</a>  
+                                <a class="p-2" href="http://appshop.com.devel/me/apps">Apps Adquiridas</a>  
                             @endif
                         @endguest
                     </ul>

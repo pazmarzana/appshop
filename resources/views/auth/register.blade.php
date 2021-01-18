@@ -11,7 +11,7 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <div class="form-group row m-2">
+                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row m-2">
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row m-2">
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
@@ -53,7 +53,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row m-2">
+                        <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
@@ -61,17 +61,21 @@
                             </div>
                         </div>
 
-                        <div class="form-group row m-2">
-                            <fieldset class="mt-5">
-                                <legend class="col-md-4"><h5>Rol del usuario:</h5></legend>
-                                <label for="Desarrollador" class="px-2">Desarrollador</label>
-                                <input class="p-2" type="radio" id="Desarrollador" name="type" value="Desarrollador" {{ old('type') == 'Desarrollador' ? "selected" : "" }}>
-                                <label for="Cliente" class="px-2">Cliente</label>
-                                <input class="p-2" type="radio" id="Cliente" name="type" value="Cliente" {{ old('type') == 'Cliente' ? "selected" : "" }} checked>
+                        <div class="form-group row justify-content-center m-2">
+                            <fieldset class="my-5 d-flex flex-wrap justify-content-center align-items-center col-lg-8 col-md-12 col-sm-12">
+                                <div class="my-3 col-lg-4 col-md-12 col-sm-12"><legend><h6>Rol del usuario:</h6></legend></div>
+                                <div class="my-3 col-lg-4 col-md-12 col-sm-12">
+                                    <label for="Desarrollador" class="">Desarrollador</label>
+                                    <input type="radio" id="Desarrollador" name="type" value="Desarrollador" {{ old('type') == 'Desarrollador' ? "selected" : "" }}>
+                                </div>
+                                <div class="my-3 col-lg-4 col-md-12 col-sm-12">
+                                    <label for="Cliente" class="">Cliente</label>
+                                    <input type="radio" id="Cliente" name="type" value="Cliente" {{ old('type') == 'Cliente' ? "selected" : "" }} checked>
+                                </div>
                             </fieldset>
                         </div>
 
-                        <div class="form-group row mb-0 mt-4">
+                        <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}

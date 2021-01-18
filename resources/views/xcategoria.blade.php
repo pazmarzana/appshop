@@ -21,9 +21,26 @@
                 <p>
                     Price: ${{ $app->price }}
                 </p>
-                <div class="d-flex flex-wrap justify-content-end col-12">
-                    <a href="{{ route('apps.show',['app' => $app->appId]) }}" class="btn btn-default btn-sm m-1 text-white"><i class="far fa-eye text-secondary"></i></a>
-                </div>   
+                {{-- <div class="d-flex flex-wrap justify-content-end col-12">
+                    <a href="{{ route('apps.show',['app' => $app->appId]) }}" class="btn btn-default btn-sm m-1 small"><i>Ver detalle</i></a>
+                </div>    --}}
+
+                @guest
+                    <div class="d-flex flex-wrap justify-content-end col-12">
+                        <a href="{{ route('detalle',['app' => $app->appId]) }}" class="btn btn-default btn-sm m-1 small"><i>Ver detalle</i></a>
+                    </div>    
+                @else
+                    @if ( Auth::user()->type ==0)
+                        <div class="d-flex flex-wrap justify-content-end col-12">
+                            <a href="{{ route('apps.show',['app' => $app->appId]) }}" class="btn btn-default btn-sm m-1 small"><i>Ver detalle</i></a>
+                        </div>    
+                    @endif    
+                    @if ( Auth::user()->type ==1)
+                        <div class="d-flex flex-wrap justify-content-end col-12">
+                            <a href="{{ route('detalle',['app' => $app->appId]) }}" class="btn btn-default btn-sm m-1 small"><i>Ver detalle</i></a>
+                        </div>    
+                    @endif
+                @endguest
   
             </div>
         </div>

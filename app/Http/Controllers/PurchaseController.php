@@ -45,7 +45,10 @@ class PurchaseController extends Controller
         $purchase->user_id = 3;
         $purchase->app_id = $request->app_id;
         $purchase->save();
-        return $purchase;
+        // return $purchase;
+        return redirect()->route('apps.index')->with(array(
+            'message' => 'La app se ha comprado correctamente'
+        ));
     }
 
     /**

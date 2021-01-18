@@ -14,7 +14,7 @@
         @foreach($apps as $app)
         <div class="card m-3 ">
             <div class="card-body p-3">
-                <img src="{{ $app->image_path }}" alt="{{ $app->image_path }}"/>
+                <img class="imagenChica" src="{{ $app->image_path }}" alt="{{ $app->image_path }}"/>
                 <h4 class="pt-3 pt-2">
                     {{ $app->appName }}
                 </h4>

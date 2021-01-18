@@ -5,9 +5,9 @@
     <div class="d-flex flex-wrap justify-content-center col-12">
 
 
-        <div class="card m-3  col-4">
+        <div class="card m-3  col-6 p-3">
             <div class="card-body p-3 d-flex flex-column align-items-center justify-content-center">
-                <img src="{{ $app->image_path }}" alt="{{ $app->image_path }}"/>
+                <img class="imagenGrande m-3" src="{{ $app->image_path }}" alt="{{ $app->image_path }}"/>
                 <h4 class="pt-3 pt-2">
                     {{ $app->name }}
                 </h4>
@@ -72,7 +72,7 @@
             json= await res.data; 
             //console.log(res,json);
         }catch(err){
-        console.log("estoy en el catch", err.response);
+            console.log("estoy en el catch", err.response);
         }finally{
             window.location.href = "{{ route('apps.index') }}";
         }

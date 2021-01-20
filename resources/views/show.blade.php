@@ -17,7 +17,6 @@
 
                 @guest
                     <div class="row">
-                        {{-- tendria que mejorarlo y que despues del login vuelva a donde estaba --}}
                         <a href="{{ route('login') }}" class="d-flex flex-wrap justify-content-center col-12 my-2">
                         <button type="button" class="btn btn-primary col-12">
                            Comprar!
@@ -28,12 +27,20 @@
                            Agregar a la lista de deseos
                         </button>
                         </a> 
-                    </div>    
+                    </div>
+                    {{-- <div class="d-flex flex-wrap justify-content-center col-12">
+                        <button type="button" onClick="postData({{ $app->id }})" class="btn btn-primary  btn-sm m-1 col-lg-8 col-md-12">
+                            Comprar!
+                        </button>
+                        <button type="button" class="btn btn-primary  btn-sm m-1 col-lg-8 col-md-12">
+                            Agregar a la lista de deseos
+                        </button>
+                    </div>        --}}
                 @else
                     @if ( Auth::user()->type ==0)
                         <div class="d-flex flex-wrap justify-content-center col-12">
                         @if($app->developer != Auth::user()->id )
-                            <button type="button" onClick="postData({{ $app->id }})" class="btn btn-primary  btn-sm m-1 col-lg-8 col-md-12">
+                            <button type="button" onClick="postData({{ $app->id}})" class="btn btn-primary  btn-sm m-1 col-lg-8 col-md-12">
                                 Comprar!
                             </button>
                             <button type="button" class="btn btn-primary  btn-sm m-1 col-lg-8 col-md-12">
@@ -44,7 +51,7 @@
                     @endif    
                     @if ( Auth::user()->type ==1)
                         <div class="d-flex flex-wrap justify-content-center col-12">
-                            <button type="button" onClick="postData({{ $app->id }})" class="btn btn-primary  btn-sm m-1 col-lg-8 col-md-12">
+                            <button type="button" onClick="postData({{ $app->id}})" class="btn btn-primary  btn-sm m-1 col-lg-8 col-md-12">
                                 Comprar!
                             </button>
                             <button type="button" class="btn btn-primary  btn-sm m-1 col-lg-8 col-md-12">
@@ -63,18 +70,37 @@
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    async function postData($id){
+
+async function postData($id){
+    const logueado = @json(Auth::check());
+    
+        if ( logueado ) {
+        
+        const token = @json(Auth::user()->api_token);
+        const url = "http://appshop.com.devel/api/buy";
+        const data = {
+        app_id: $id
+        };
+        const options = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        };
         try{
-            let res= await axios.post("http://appshop.com.devel/api/buy", 
-            {
-            app_id: $id
-            }),
-            json= await res.data; 
+            let res= await axios.post(url, data, options),
+            json= await res.data;
+
+            console.log("ESTOY EN EL TRY");
             //console.log(res,json);
+            window.location.href = "{{ route('apps.index') }}";
         }catch(err){
             console.log("estoy en el catch", err.response);
         }finally{
-            window.location.href = "{{ route('apps.index') }}";
+            
         }
-    };
+      }else{
+        window.location.href = "{{ route('login') }}";
+      }  
+};
 </script>

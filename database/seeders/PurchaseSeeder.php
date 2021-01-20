@@ -16,7 +16,7 @@ class PurchaseSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i <= 50; $i++) {
+        for ($i = 0; $i <= 10; $i++) {
             DB::table('purchases')->insert([
                 'user_id' => User::find(1)->where('users.type', '=', 1)->get()->random()->id,
                 'app_id' => App::all()->random()->id,

@@ -18,7 +18,6 @@ class AppController extends Controller
     public function index()
     {
         if (Auth::check()) {
-
             $user = Auth::user();
             if ($user->type == 0) {
                 $apps = $user->appsComoDeveloper()->orderBy('id', 'DESC')->get();
@@ -30,23 +29,14 @@ class AppController extends Controller
                     ->where('purchases.user_id', '=', $user->id)
                     ->orderBy('apps.id', 'DESC')
                     ->get();
-
                 $categories = Category::orderBy('name', 'ASC')->get();
-                // return view('indexcliente', compact('apps', 'categories'));
                 return view('index', compact('apps', 'categories'));
             }
         } else {
             $apps = App::orderBy('id', 'DESC')->get();
             $categories = Category::orderBy('name', 'ASC')->get();
-            // return view('list', compact('apps'));
             return view('index', compact('apps', 'categories'));
         }
-
-        // if (!empty($apps)) {
-        //     return view('index', compact('apps'));
-        // } else {
-        //     return back();
-        // }
     }
 
     /**
@@ -242,7 +232,8 @@ class AppController extends Controller
             } else {
                 // var_dump($app);
                 // die();
-                return view('show', compact('app'));
+                //ver si es necesario user si no no pasarlo
+                return view('show', compact('app', 'user'));
             }
         } else {
             return view('show', compact('app'));

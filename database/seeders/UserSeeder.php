@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i <= 20; $i++) {
+        for ($i = 0; $i <= 10; $i++) {
 
             DB::table('users')->insert(
                 [
@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
                     'type' => rand(0, 1),
                     'email' => ('email' . $i . Str::random(10) . '@gmail.com'),
                     'password' => Hash::make('password' . $i),
+                    'api_token' => Str::random(60),
                 ],
             );
         }

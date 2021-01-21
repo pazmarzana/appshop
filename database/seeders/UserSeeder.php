@@ -24,7 +24,6 @@ class UserSeeder extends Seeder
                     'type' => rand(0, 1),
                     'email' => ('email' . $i . Str::random(10) . '@gmail.com'),
                     'password' => Hash::make('password' . $i),
-                    'api_token' => Str::random(60),
                 ],
             );
         }

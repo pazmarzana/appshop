@@ -60,7 +60,6 @@
                         </div>   
                     @endif
                 @endguest
-
             </div>
         </div>
 
@@ -73,32 +72,30 @@
 
 async function postData($id){
     const logueado = @json(Auth::check());
-    
-        if ( logueado ) {
-        
-        const token = @json(Auth::user()->api_token);
-        const url = "http://appshop.com.devel/api/buy";
-        const data = {
-        app_id: $id
-        };
-        const options = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        };
-        try{
-            let res= await axios.post(url, data, options),
-            json= await res.data;
 
-            console.log("ESTOY EN EL TRY");
-            //console.log(res,json);
-            window.location.href = "{{ route('apps.index') }}";
-        }catch(err){
-            console.log("estoy en el catch", err.response);
-        }finally{
-            
-        }
+    if ( logueado ) {
+            const url = "http://127.0.0.1:8000/api/buy";
+            const data = {
+                app_id: $id
+            };
+            const options = {
+                withCredentials: true, 
+                headers: {
+                        'Access-Control-Allow-Origin': 'http://127.0.0.1:8000/',
+                        'Content-Type': 'application/json',
+                    }
+                };
+                try{
+                    let res= await axios.post(url, data, options),
+                    json= await res.data;
+                    
+                    console.log("ESTOY EN EL TRY2");
+                    console.log(res,json);
+                    window.location.href = "{{ route('apps.index') }}";
+                }catch(err){
+                    console.log("estoy en el catch2", err.response);
+                }finally{
+                }
       }else{
         window.location.href = "{{ route('login') }}";
       }  

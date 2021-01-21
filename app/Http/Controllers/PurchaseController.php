@@ -36,49 +36,49 @@ class PurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    // {
-
-    //     $user = Auth::user();
-    //     $purchase = new Purchase();
-    //     $purchase->user_id = $user->id;
-    //     $purchase->app_id = $request->app_id;
-    //     $purchase->save();
-    //     return $purchase;
-    // }
-
     {
 
-        if (Auth::check()) {
-            $user = Auth::user();
-
-            if ($user->type == 0) {
-
-                return back();
-            } else {
-                $purchasePrevia =  Purchase::where('app_id', '=', $request->app_id)->where('user_id', '=', $user->id)->get();
-                if ($purchasePrevia->isEmpty()) {
-
-                    $purchase = new Purchase();
-                    $purchase->user_id = $user->id;
-                    $purchase->app_id = $request->app_id;
-                    $purchase->save();
-                    return redirect()->route('apps.index')->with(array(
-                        'message' => 'La app se ha comprado correctamente'
-                    ));
-                } else {
-
-                    return redirect()->route('apps.index')->with(array(
-                        'error' => 'La app ya se habia comprado previamente'
-                    ));
-                }
-            }
-        } else {
-
-            return redirect()->route('login')->with(array(
-                'error' => 'Debe loguearse para poder comprar la aplicacion'
-            ));
-        }
+        $user = Auth::user();
+        $purchase = new Purchase();
+        $purchase->user_id = $user->id;
+        $purchase->app_id = $request->app_id;
+        $purchase->save();
+        return $purchase;
     }
+
+    // {
+
+    //     if (Auth::check()) {
+    //         $user = Auth::user();
+
+    //         if ($user->type == 0) {
+
+    //             return back();
+    //         } else {
+    //             $purchasePrevia =  Purchase::where('app_id', '=', $request->app_id)->where('user_id', '=', $user->id)->get();
+    //             if ($purchasePrevia->isEmpty()) {
+
+    //                 $purchase = new Purchase();
+    //                 $purchase->user_id = $user->id;
+    //                 $purchase->app_id = $request->app_id;
+    //                 $purchase->save();
+    //                 return redirect()->route('apps.index')->with(array(
+    //                     'message' => 'La app se ha comprado correctamente'
+    //                 ));
+    //             } else {
+
+    //                 return redirect()->route('apps.index')->with(array(
+    //                     'error' => 'La app ya se habia comprado previamente'
+    //                 ));
+    //             }
+    //         }
+    //     } else {
+
+    //         return redirect()->route('login')->with(array(
+    //             'error' => 'Debe loguearse para poder comprar la aplicacion'
+    //         ));
+    //     }
+    // }
 
     /**
      * Display the specified resource.

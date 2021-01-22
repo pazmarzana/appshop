@@ -27,6 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource("buy", 'App\Http\Controllers\PurchaseController');
+    Route::apiResource("wish", 'App\Http\Controllers\WishController');
 });
 Route::post("login", [UserController::class, 'index']);
 

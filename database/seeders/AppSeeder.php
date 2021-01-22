@@ -20,7 +20,7 @@ class AppSeeder extends Seeder
     public function run()
     {
 
-        for ($i = 0; $i <= 10; $i++) {
+        for ($i = 0; $i <= 40; $i++) {
             DB::table('apps')->insert([
                 'name' => ('app' . $i . Str::random(10)),
                 'price' => mt_rand(0, 10000) / 100,

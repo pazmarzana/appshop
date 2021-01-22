@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\App;
+use App\Models\Purchase;
 
 class PurchaseSeeder extends Seeder
 {
@@ -16,10 +17,12 @@ class PurchaseSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i <= 10; $i++) {
-            DB::table('purchases')->insert([
-                'user_id' => User::find(1)->where('users.type', '=', 1)->get()->random()->id,
-                'app_id' => App::all()->random()->id,
+        for ($i = 0; $i <= 30; $i++) {
+            $user_id = User::find(1)->where('users.type', '=', 1)->get()->random()->id;
+            $app_id = App::all()->random()->id;
+            Purchase::firstOrCreate([
+                'user_id' => $user_id,
+                'app_id' => $app_id,
             ]);
         }
     }

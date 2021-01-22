@@ -15,8 +15,8 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::all();
-        return $purchases;
+        // $purchases = Purchase::all();
+        // return $purchases;
     }
 
     /**
@@ -37,48 +37,13 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-
         $user = Auth::user();
         $purchase = new Purchase();
         $purchase->user_id = $user->id;
         $purchase->app_id = $request->app_id;
         $purchase->save();
-        return $purchase;
+        return ["Result" => "La compra se ha efectuado correctamente"];
     }
-
-    // {
-
-    //     if (Auth::check()) {
-    //         $user = Auth::user();
-
-    //         if ($user->type == 0) {
-
-    //             return back();
-    //         } else {
-    //             $purchasePrevia =  Purchase::where('app_id', '=', $request->app_id)->where('user_id', '=', $user->id)->get();
-    //             if ($purchasePrevia->isEmpty()) {
-
-    //                 $purchase = new Purchase();
-    //                 $purchase->user_id = $user->id;
-    //                 $purchase->app_id = $request->app_id;
-    //                 $purchase->save();
-    //                 return redirect()->route('apps.index')->with(array(
-    //                     'message' => 'La app se ha comprado correctamente'
-    //                 ));
-    //             } else {
-
-    //                 return redirect()->route('apps.index')->with(array(
-    //                     'error' => 'La app ya se habia comprado previamente'
-    //                 ));
-    //             }
-    //         }
-    //     } else {
-
-    //         return redirect()->route('login')->with(array(
-    //             'error' => 'Debe loguearse para poder comprar la aplicacion'
-    //         ));
-    //     }
-    // }
 
     /**
      * Display the specified resource.
@@ -120,8 +85,10 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Purchase $purchase)
+    public function destroy($id)
     {
-        //
+        $purchase = Purchase::findOrFail($id);
+        $purchase->delete();
+        return ["Result" => "La compra se ha cancelado correctamente"];
     }
 }

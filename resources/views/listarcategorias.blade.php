@@ -18,7 +18,7 @@
         </div>
         <div class="list-group  col-6">
             @foreach($categories->all() as $category)
-                <a href="/apps/categories/{{ $category->id }}" class="list-group-item list-group-item-action">{{ $category->id }} - {{ $category->name }}</a>
+                <a href="/apps/categories/{{ $category->id }}" class="list-group-item list-group-item-action">{{ $category->name }} - ({{ $category->apps_count }})</a>
             @endforeach
 
         </div>

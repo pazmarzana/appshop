@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\App;
 use App\Models\Category;
+use App\Models\Purchase;
+use App\Models\Wish;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +22,7 @@ class AppController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             if ($user->type == 0) {
-                $apps = $user->appsComoDeveloper()->orderBy('id', 'DESC')->get();
+                $apps = $user->appsComoDeveloper()->orderBy('id', 'DESC')->paginate(10);
                 return view('index', compact('apps'));
             } else {
                 $apps = DB::table('apps')
@@ -28,14 +30,11 @@ class AppController extends Controller
                     ->select('apps.id as id', 'apps.name as name', 'price', 'image_path', 'developer')
                     ->where('purchases.user_id', '=', $user->id)
                     ->orderBy('apps.id', 'DESC')
-                    ->get();
-                $categories = Category::orderBy('name', 'ASC')->get();
-                return view('index', compact('apps', 'categories'));
+                    ->paginate(10);
+                return view('index', compact('apps'));
             }
         } else {
-            $apps = App::orderBy('id', 'DESC')->get();
-            $categories = Category::orderBy('name', 'ASC')->get();
-            return view('index', compact('apps', 'categories'));
+            return back();
         }
     }
 
@@ -102,6 +101,7 @@ class AppController extends Controller
      * @param  \App\Models\App  $app
      * @return \Illuminate\Http\Response
      */
+    //esta la uso solo en el caso del desarrollador
     public function show(App $app)
     {
         if (Auth::check()) {
@@ -109,7 +109,7 @@ class AppController extends Controller
             if ($user->type == 0) {
                 return view('show', compact('app'));
             } else {
-                return view('show', compact('app'));
+                return redirect()->action([AppController::class, 'ver'], $app);
             }
         } else {
             return back();
@@ -215,10 +215,10 @@ class AppController extends Controller
     public function list()
     {
         // $apps = App::orderBy('name', 'ASC')->get();
-        $apps = App::orderBy('id', 'DESC')->get();
+        $apps = App::orderBy('id', 'DESC')->paginate(10);
         // $categories = Category::orderBy('name', 'ASC')->get();
         // return view('index', compact('apps', 'categories'));
-        return view('index', compact('apps'));
+        return view('lista', compact('apps'));
         // return view('list', compact('apps'));
     }
 
@@ -228,15 +228,30 @@ class AppController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             if ($user->type == 0) {
-                return back();
+                return view('ver', compact('app'));
             } else {
-                // var_dump($app);
+                // $purchased =  Purchase::select('id')->where('app_id', '=', $app->id)->where('user_id', '=', $user->id)->get();
+                $purchased = DB::table('purchases')
+                    ->select('id')
+                    ->where('app_id', '=', $app->id)
+                    ->where('user_id', '=', $user->id)
+                    ->get();
+
+                ($purchased->isEmpty()) ? ($yacomprada = -1) : ($yacomprada = $purchased[0]->id);
+                // dd($yacomprada);
                 // die();
-                //ver si es necesario user si no no pasarlo
-                return view('show', compact('app', 'user'));
+                // $wished =  Wish::where('app_id', '=', $app->id)->where('user_id', '=', $user->id)->get();
+                $wished = DB::table('wishes')
+                    ->select('id')
+                    ->where('app_id', '=', $app->id)
+                    ->where('user_id', '=', $user->id)
+                    ->get();
+                ($wished->isEmpty()) ? ($yadeseada = -1) : ($yadeseada = $wished[0]->id);
+
+                return view('ver', compact('app', 'yacomprada', 'yadeseada'));
             }
         } else {
-            return view('show', compact('app'));
+            return view('ver', compact('app'));
         }
     }
 
@@ -250,7 +265,13 @@ class AppController extends Controller
         //     return back();
         // }
 
-        $categories = Category::orderBy('name', 'ASC')->get();
+        $categories = Category::withCount('apps')->orderBy('name', 'ASC')->get();
+
+        // dd($categories);
+        // die();
+
+
+
         return view('listarcategorias', compact('categories'));
     }
 
@@ -270,7 +291,7 @@ class AppController extends Controller
                     ->where('apps.category_id', '=', $id)
                     ->where('purchases.user_id', '=', $user->id)
                     ->orderBy('apps.id', 'DESC')
-                    ->get();
+                    ->paginate(10);
 
                 return view('xcategoria', compact('apps'));
             }
@@ -279,7 +300,7 @@ class AppController extends Controller
                 ->select('apps.id as appId', 'apps.name as appName', 'price', 'image_path', 'developer')
                 ->where('apps.category_id', '=', $id)
                 ->orderBy('apps.id', 'DESC')
-                ->get();
+                ->paginate(10);
 
             return view('xcategoria', compact('apps'));
         }
@@ -287,29 +308,32 @@ class AppController extends Controller
 
     public function listarxcategoriaTodas($id)
     {
+        $apps = DB::table('apps')
+            ->select('apps.id as appId', 'apps.name as appName', 'price', 'image_path', 'developer')
+            ->where('apps.category_id', '=', $id)
+            ->orderBy('apps.id', 'DESC')
+            ->paginate(10);
 
+        return view('xcategoria', compact('apps'));
+    }
 
+    public function listarlistadeseos()
+    {
         if (Auth::check()) {
             $user = Auth::user();
             if ($user->type == 0) {
                 return back();
             } else {
                 $apps = DB::table('apps')
-                    ->select('apps.id as appId', 'apps.name as appName', 'price', 'image_path', 'developer')
-                    ->where('apps.category_id', '=', $id)
+                    ->join('wishes', 'apps.id', '=', 'wishes.app_id')
+                    ->select('apps.id as id', 'apps.name as name', 'price', 'image_path', 'developer')
+                    ->where('wishes.user_id', '=', $user->id)
                     ->orderBy('apps.id', 'DESC')
-                    ->get();
-
-                return view('xcategoria', compact('apps'));
+                    ->paginate(10);
+                return view('listadeseos', compact('apps'));
             }
         } else {
-            $apps = DB::table('apps')
-                ->select('apps.id as appId', 'apps.name as appName', 'price', 'image_path', 'developer')
-                ->where('apps.category_id', '=', $id)
-                ->orderBy('apps.id', 'DESC')
-                ->get();
-
-            return view('xcategoria', compact('apps'));
+            return back();
         }
     }
 }

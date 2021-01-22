@@ -36,15 +36,19 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @guest
-                        <a class="p-2" href="http://127.0.0.1:8000/apps">Apps</a>
+                        <a class="p-2" href="{{ route('list') }}">Apps</a>
                         <a class="p-2" href="{{ route('listarcategorias') }}">Categorias</a>  
                         @else
                             @if ( Auth::user()->type ==0)
+                                <a class="p-2" href="{{ route('list') }}">Apps</a>
+                                <a class="p-2" href="{{ route('listarcategorias') }}">Categorias</a>  
+                                <a class="p-2" href="{{ route('apps.index') }}">Apps Desarrolladas</a>  
                             @endif    
                             @if ( Auth::user()->type ==1)
-                                <a class="p-2" href="http://127.0.0.1:8000/apps">Apps</a>
+                                <a class="p-2" href="{{ route('list') }}">Apps</a>
                                 <a class="p-2" href="{{ route('listarcategorias') }}">Categorias</a>  
-                                <a class="p-2" href="http://127.0.0.1:8000/me/apps">Apps Adquiridas</a>  
+                                <a class="p-2" href="{{ route('apps.index') }}">Apps Adquiridas</a>  
+                                <a class="p-2" href="{{ route('listadeseos') }}">Lista de deseos</a>  
                             @endif
                         @endguest
                     </ul>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Wish;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WishController extends Controller
 {
@@ -35,7 +36,12 @@ class WishController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $wish = new Wish();
+        $wish->user_id = $user->id;
+        $wish->app_id = $request->app_id;
+        $wish->save();
+        return ["Result" => "La aplicacion se ha agregado a la lista de deseos exitosamente"];
     }
 
     /**
@@ -78,8 +84,10 @@ class WishController extends Controller
      * @param  \App\Models\Wish  $wish
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Wish $wish)
+    public function destroy($id)
     {
-        //
+        $wish = Wish::findOrFail($id);
+        $wish->delete();
+        return ["Result" => "La aplicacion se ha eliminado de la lista de deseos exitosamente"];
     }
 }

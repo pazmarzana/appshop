@@ -30,9 +30,6 @@
                 </p>
 
                 @guest
-                    <div class="d-flex flex-wrap justify-content-end col-12">
-                        <a href="{{ route('detalle',['app' => $app->id]) }}" class="btn btn-default btn-sm m-1 small"><i>Ver detalle</i></a>
-                    </div>    
                 @else
                     @if ( Auth::user()->type ==0)
                         <div class="d-flex flex-wrap justify-content-end col-12">

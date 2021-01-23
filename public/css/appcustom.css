@@ -1,10 +1,99 @@
 .imagenChica{
-    width: 200px;
-    height: 200px;
+    max-width: 100%;
+    height: auto;
     object-fit: cover;
 }
 .imagenGrande {
-    width: 400px;
-    height: 400px;
+    max-width: 100%;
+    height: auto;
     object-fit: cover;
 }
+.contenedor {
+    background-color: rgb(240, 240, 240);
+    min-height: 100vh;
+}
+
+/* Extra small <576px
+ Small ≥576px
+ Medium ≥768px
+ Large ≥992px
+ Extra large ≥1200px */
+.tituloImagen {
+    font-size: 1rem;
+}
+@media only screen and (max-width: 3000px) {
+    .tituloImagen {
+        font-size: 1.1rem;
+    }
+}
+@media only screen and (max-width: 1800px) {
+    .tituloImagen {
+        font-size: 0.8rem;
+    }
+}
+@media only screen and (max-width: 1400px) {
+    .tituloImagen {
+        font-size: 0.8rem;
+    }
+    .precio {
+        font-size: 0.7rem;
+    }
+    .detalle {
+        font-size: 0.6rem;
+    }
+    .card{
+        padding: 0;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    .tituloImagen {
+        font-size: 1rem;
+    }
+}
+@media only screen and (max-width: 992px) {
+    .tituloImagen {
+        font-size: 0.9rem;
+    }
+    .precio {
+        font-size: 0.8rem;
+    }
+    .detalle {
+        font-size: 0.7rem;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .tituloImagen {
+        font-size: 1.1rem;
+    }
+    .precio {
+        font-size: 1rem;
+    }
+    .detalle {
+        font-size: 0.9rem;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .tituloImagen {
+        font-size: 0.8rem;
+    }
+
+    .precio {
+        font-size: 0.8rem;
+    }
+
+    .detalle {
+        font-size: 0.8rem;
+    }
+}
+.pagination ul{
+    flex-wrap: wrap;
+}
+
+
+input:out-of-range {
+    border: 1px solid red;
+}
+input:valid {
+    border: 1px solid green;
+}
+

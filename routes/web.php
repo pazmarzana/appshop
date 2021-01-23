@@ -21,16 +21,10 @@ Route::get('/ver/{app}', [AppController::class, 'ver'])->name('detalle'); //se v
 Route::get('/apps/categories', [AppController::class, 'listarcategorias'])->name('listarcategorias');
 Route::get('/apps/categories/{id}', [AppController::class, 'listarxcategoriaTodas'])->name('listarxcategoriaTodas');
 
-
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('/me/apps', 'App\Http\Controllers\AppController'); //se muestran las apps segun dev/cliente, index, show, etc
-    //no se si la voy a usar listo solo las compradas (por categoria)
-    Route::get('/me/apps/categories/{id}', [AppController::class, 'listarxcategoria'])->name('listarxcategoria');
     Route::get('/me/listadeseos', [AppController::class, 'listarlistadeseos'])->name('listadeseos');
 });
-
-
-
 
 Auth::routes();
 

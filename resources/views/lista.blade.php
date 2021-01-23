@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xl">
+<div class="contenedor container-fluid col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 justify-content-center">
     <div class="row justify-content-center">
     @if(session('message'))
         <div class="alert alert-success col-4 " >
@@ -12,26 +12,28 @@
 
     <div class="d-flex flex-wrap justify-content-center col-12">
         @foreach($apps->all() as $app)
-        <div class="card m-3 ">
+        <div class="card m-3 col-xs-12 col-sm-5 col-md-4 col-lg-3 col-xl-2">
             <div class="card-body p-3">
                 <img class="imagenChica" src="{{ $app->image_path }}" alt="{{ $app->image_path }}"/>
-                <h4 class="pt-3 pt-2">
+                <h5 class="pt-3 pt-2 tituloImagen">
                     {{ $app->name }}
-                </h4>
-                <p>
+                </h5>
+                <p class="precio">
                     Price: ${{ $app->price }}
                 </p>
-
                 <div class="d-flex flex-wrap justify-content-end col-12">
-                    <a href="{{ route('detalle',['app' => $app->id]) }}" class="btn btn-default btn-sm m-1 small"><i>Ver detalle</i></a>
+                    <a href="{{ route('detalle',['app' => $app->id]) }}" class="btn btn-default btn-sm m-1 small detalle"><i>Ver detalle</i></a>
                 </div>    
-
-
-
             </div>
         </div>
         @endforeach
-
     </div>
+
+    <div class="d-flex justify-content-center mt-4 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+        <div class="d-flex pagination pagination-sm">
+        {{ $apps->links() }}
+        </div>
+    </div>
+    
 </div>
 @endsection

@@ -22,7 +22,7 @@ class AppController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             if ($user->type == 0) {
-                $apps = $user->appsComoDeveloper()->orderBy('id', 'DESC')->paginate(10);
+                $apps = App::where('developer', '=', $user->id)->orderBy('id', 'DESC')->paginate(10);
                 return view('index', compact('apps'));
             } else {
                 $apps = DB::table('apps')
@@ -70,8 +70,8 @@ class AppController extends Controller
             $user = Auth::user();
             if ($user->type == 0) {
                 $validatedData = $this->validate($request, [
-                    'name' => 'required|min:2',
-                    'price' => 'required|numeric|min:0|max:20000000000',
+                    'name' => 'required|min:2|max:30',
+                    'price' => 'required|numeric|min:0|max:200000000',
                     'image_path' => 'required|active_url',
                     'category' => 'required|integer',
                 ]); //termina validate
@@ -153,7 +153,7 @@ class AppController extends Controller
             $user = Auth::user();
             if ($user->type == 0) {
                 $validatedData = $this->validate($request, [
-                    'price' => 'required|numeric|min:0|max:20000000000',
+                    'price' => 'required|numeric|min:0|max:200000000',
                     'image_path' => 'required|active_url',
 
                 ]); //termina validate
@@ -187,15 +187,12 @@ class AppController extends Controller
             $user = Auth::user();
             if ($user->type == 0) {
                 $app = App::findOrFail($app->id);
-
                 foreach ($app->purchases as $purchase) {
                     $purchase->delete();
                 }
-
                 foreach ($app->wishes as $wish) {
                     $wish->delete();
                 }
-
                 $app->delete();
                 return redirect()->route('apps.index')->with(array(
                     'message' => 'La aplicación se ha borrado correctamente'
@@ -214,12 +211,8 @@ class AppController extends Controller
 
     public function list()
     {
-        // $apps = App::orderBy('name', 'ASC')->get();
         $apps = App::orderBy('id', 'DESC')->paginate(10);
-        // $categories = Category::orderBy('name', 'ASC')->get();
-        // return view('index', compact('apps', 'categories'));
         return view('lista', compact('apps'));
-        // return view('list', compact('apps'));
     }
 
     public function ver(App $app)
@@ -230,24 +223,18 @@ class AppController extends Controller
             if ($user->type == 0) {
                 return view('ver', compact('app'));
             } else {
-                // $purchased =  Purchase::select('id')->where('app_id', '=', $app->id)->where('user_id', '=', $user->id)->get();
                 $purchased = DB::table('purchases')
                     ->select('id')
                     ->where('app_id', '=', $app->id)
                     ->where('user_id', '=', $user->id)
                     ->get();
-
                 ($purchased->isEmpty()) ? ($yacomprada = -1) : ($yacomprada = $purchased[0]->id);
-                // dd($yacomprada);
-                // die();
-                // $wished =  Wish::where('app_id', '=', $app->id)->where('user_id', '=', $user->id)->get();
                 $wished = DB::table('wishes')
                     ->select('id')
                     ->where('app_id', '=', $app->id)
                     ->where('user_id', '=', $user->id)
                     ->get();
                 ($wished->isEmpty()) ? ($yadeseada = -1) : ($yadeseada = $wished[0]->id);
-
                 return view('ver', compact('app', 'yacomprada', 'yadeseada'));
             }
         } else {
@@ -257,29 +244,13 @@ class AppController extends Controller
 
     public function listarcategorias()
     {
-        // $user = Auth::user();
-        // if ($user->type == 1) {
-        //     $categories = Category::orderBy('name', 'ASC')->get();
-        //     return view('listarcategorias', compact('categories'));
-        // } else {
-        //     return back();
-        // }
-
         $categories = Category::withCount('apps')->orderBy('name', 'ASC')->get();
-
-        // dd($categories);
-        // die();
-
-
-
         return view('listarcategorias', compact('categories'));
     }
 
     //por ahora no la voy a usar, si es cliente muestro solo las compradas (por categoria)
     public function listarxcategoria($id)
     {
-
-
         if (Auth::check()) {
             $user = Auth::user();
             if ($user->type == 0) {
@@ -292,7 +263,6 @@ class AppController extends Controller
                     ->where('purchases.user_id', '=', $user->id)
                     ->orderBy('apps.id', 'DESC')
                     ->paginate(10);
-
                 return view('xcategoria', compact('apps'));
             }
         } else {
@@ -301,7 +271,6 @@ class AppController extends Controller
                 ->where('apps.category_id', '=', $id)
                 ->orderBy('apps.id', 'DESC')
                 ->paginate(10);
-
             return view('xcategoria', compact('apps'));
         }
     }
@@ -313,7 +282,10 @@ class AppController extends Controller
             ->where('apps.category_id', '=', $id)
             ->orderBy('apps.id', 'DESC')
             ->paginate(10);
-
+        $apps = DB::table('apps')
+            ->where('apps.category_id', '=', $id)
+            ->orderBy('apps.id', 'DESC')
+            ->paginate(10);
         return view('xcategoria', compact('apps'));
     }
 

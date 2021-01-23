@@ -16,21 +16,16 @@
         @endif
         <div class="form-group m-4">
             <label for="name">Nombre de la aplicación</label>
-            <input type="text" name="name" class="form-control" value="{{old('name')}}" >
+            <input type="text" name="name" minlength="2" maxlength="30" class="form-control" value="{{old('name')}}" required>
         </div>
         <div class="form-group m-4">
             <label for="price">Precio de Venta</label>
-            <input type="number" name="price" class="form-control" value="{{old('price')}}" >
+            <input type="number" step="0.01" min=0 max=200000000 name="price" class="form-control" value="{{old('price')}}" required>
         </div>
-        {{-- <div class="form-control-file m-4">
+        <div class="m-4">
             <label for="image_path">Imagen</label>
-            <input type="file" name="image_path" class="form-control" value="{{old('image_path')}}" >
-        </div> --}}
-        <div class="form-control-file m-4">
-            <label for="image_path">Imagen</label>
-            <input type="url" name="image_path" class="form-control" value="{{old('image_path')}}" >
+            <input type="url" name="image_path" class="form-control" value="{{old('image_path')}}" required>
         </div>
-
         <div class="form-group m-4">
             <label for="category">Categoria</label>
             <select type="text" name="category" class="form-control" >

@@ -10,31 +10,24 @@ class CategorySeeder extends Seeder
 
     static $categories = [
         'Automóviles ',
-        'Belleza ',
-        'Casa Hogar ',
         'Clima ',
         'Comida y bebida ',
         'Compras ',
-        'Comunicación ',
         'Crianza ',
         'Deportes ',
         'Diseño ',
         'Educación ',
         'Entretenimiento ',
-        'Eventos ',
         'Finanzas ',
         'Fotografía ',
         'Juegos ',
         'Libros ',
         'Mapas y navegación ',
         'Medicina ',
-        'Música y audio ',
-        'Noticias y revistas ',
-        'Reproductores y editores de video ',
+        'Música y video ',
         'Salud y estado fisico ',
         'Social ',
         'Viajes y locales '
-
     ];
 
     /**

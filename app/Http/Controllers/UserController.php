@@ -17,14 +17,11 @@ class UserController extends Controller
                 'message' => ['These credentials do not match our records.']
             ], 404);
         }
-
         $token = $user->createToken('my-app-token')->plainTextToken;
-
         $response = [
             'user' => $user,
             'token' => $token
         ];
-
         return response($response, 201);
     }
 }

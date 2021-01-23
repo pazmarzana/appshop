@@ -35,18 +35,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @guest
                         <a class="p-2" href="{{ route('list') }}">Apps</a>
                         <a class="p-2" href="{{ route('listarcategorias') }}">Categorias</a>  
+                        @guest
                         @else
                             @if ( Auth::user()->type ==0)
-                                <a class="p-2" href="{{ route('list') }}">Apps</a>
-                                <a class="p-2" href="{{ route('listarcategorias') }}">Categorias</a>  
                                 <a class="p-2" href="{{ route('apps.index') }}">Apps Desarrolladas</a>  
                             @endif    
                             @if ( Auth::user()->type ==1)
-                                <a class="p-2" href="{{ route('list') }}">Apps</a>
-                                <a class="p-2" href="{{ route('listarcategorias') }}">Categorias</a>  
                                 <a class="p-2" href="{{ route('apps.index') }}">Apps Adquiridas</a>  
                                 <a class="p-2" href="{{ route('listadeseos') }}">Lista de deseos</a>  
                             @endif

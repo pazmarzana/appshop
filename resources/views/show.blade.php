@@ -10,7 +10,7 @@
                     {{ $app->name }}
                 </h5>
                 <p>
-                    Price: ${{ $app->price }}
+                    Precio: ${{ $app->price }}
                 </p>
                 @guest
                 @else

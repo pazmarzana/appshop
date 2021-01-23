@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             AppSeeder::class,
             WishSeeder::class,
             PurchaseSeeder::class,
+            PricehistorySeeder::class,
         ]);
     }
 }

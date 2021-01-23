@@ -22,11 +22,13 @@ class AppSeeder extends Seeder
 
         for ($i = 0; $i < 200; $i++) {
             DB::table('apps')->insert([
-                'name' => ('app' . $i . Str::random(10)),
+                'name' => ('app' . $i . Str::random(8)),
                 'price' => mt_rand(0, 10000) / 100,
                 'image_path' => ('https://loremflickr.com/400/400?lock=' . $i),
                 'category_id' => Category::all()->random()->id,
                 'developer' => User::find(1)->where('users.type', '=', 0)->get()->random()->id,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ]);
         }
     }

@@ -8,10 +8,21 @@
     height: auto;
     object-fit: cover;
 }
+.sombra {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 .contenedor {
     background-color: rgb(240, 240, 240);
-    min-height: 100vh;
+    min-height: 80vh;
 }
+input:out-of-range {
+    border: 1px solid red;
+}
+
+input:valid {
+    border: 1px solid green;
+}
+
 
 /* Extra small <576px
  Small ≥576px
@@ -90,10 +101,6 @@
 }
 
 
-input:out-of-range {
-    border: 1px solid red;
-}
-input:valid {
-    border: 1px solid green;
-}
+
+
 

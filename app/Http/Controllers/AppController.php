@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\App;
 use App\Models\Category;
+use App\Models\Pricehistory;
 use App\Models\Purchase;
 use App\Models\Wish;
 use Illuminate\Http\Request;
@@ -84,6 +85,12 @@ class AppController extends Controller
                 $app->developer = $user->id;
 
                 $app->save();
+
+                $pricehistory = new Pricehistory();
+                $pricehistory->app_id = $app->id;
+                $pricehistory->price = $request->input('price');
+                $pricehistory->save();
+
                 return redirect()->route('apps.index')->with(array(
                     'message' => 'La app se ha guardado correctamente'
                 ));
@@ -162,6 +169,11 @@ class AppController extends Controller
                 $app->price = $request->input('price');
                 $app->image_path = $request->input('image_path');
                 $app->update();
+
+                $pricehistory = new Pricehistory();
+                $pricehistory->app_id = $app->id;
+                $pricehistory->price = $request->input('price');
+                $pricehistory->save();
 
                 return redirect()->route('apps.index')->with(array(
                     'message' => 'La modificacion se ha guardado correctamente'

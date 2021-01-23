@@ -19,21 +19,17 @@ class App extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function buyers()
-    // {
-    //     return $this->belongsToMany(User::class)->using(Purchase::class);
-    // }
-
-    // public function wishowners()
-    // {
-    //     return $this->belongsToMany(User::class)->using(Wish::class);
-    // }
-
     public function purchases()
     {
         return $this->hasMany(Purchase::class);
     }
+
     public function wishes()
+    {
+        return $this->hasMany(Wish::class);
+    }
+
+    public function pricehistories()
     {
         return $this->hasMany(Wish::class);
     }

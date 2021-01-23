@@ -23,6 +23,8 @@ class PurchaseSeeder extends Seeder
             Purchase::firstOrCreate([
                 'user_id' => $user_id,
                 'app_id' => $app_id,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ]);
         }
     }

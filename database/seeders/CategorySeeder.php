@@ -9,21 +9,17 @@ class CategorySeeder extends Seeder
 {
 
     static $categories = [
-        'Automóviles ',
         'Clima ',
         'Comida y bebida ',
         'Compras ',
-        'Crianza ',
         'Deportes ',
         'Diseño ',
         'Educación ',
         'Entretenimiento ',
         'Finanzas ',
-        'Fotografía ',
         'Juegos ',
         'Libros ',
-        'Mapas y navegación ',
-        'Medicina ',
+        'Mapas',
         'Música y video ',
         'Salud y estado fisico ',
         'Social ',
@@ -39,7 +35,9 @@ class CategorySeeder extends Seeder
     {
         foreach (self::$categories as $category) {
             DB::table('categories')->insert([
-                'name' => $category
+                'name' => $category,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ]);
         }
     }

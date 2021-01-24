@@ -223,10 +223,15 @@ class AppController extends Controller
 
     public function list()
     {
-        $apps = App::orderBy('id', 'DESC')->paginate(10);
+        $apps = App::withCount('ratings')->withAvg('ratings', 'rating')->orderBy('id', 'DESC')->paginate(10);
         return view('lista', compact('apps'));
     }
 
+    public function listarmasvotadas()
+    {
+        $apps = App::withCount('ratings')->withAvg('ratings', 'rating')->having('ratings_avg_rating', '>=', 2)->orderBy('ratings_count', 'DESC')->paginate(10);
+        return view('listamasvotadas', compact('apps'));
+    }
     public function ver(App $app)
     {
         $app = App::findOrFail($app->id);

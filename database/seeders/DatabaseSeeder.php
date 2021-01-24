@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             WishSeeder::class,
             PurchaseSeeder::class,
             PricehistorySeeder::class,
+            RatingSeeder::class,
         ]);
     }
 }

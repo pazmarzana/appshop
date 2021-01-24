@@ -20,6 +20,7 @@ Route::get('/apps', [AppController::class, 'list'])->name('list'); //se muestran
 Route::get('/ver/{app}', [AppController::class, 'ver'])->name('detalle'); //se ve el detalle de una app
 Route::get('/apps/categories', [AppController::class, 'listarcategorias'])->name('listarcategorias');
 Route::get('/apps/categories/{id}', [AppController::class, 'listarxcategoriaTodas'])->name('listarxcategoriaTodas');
+Route::get('/masvotadas', [AppController::class, 'listarmasvotadas'])->name('listarmasvotadas');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('/me/apps', 'App\Http\Controllers\AppController'); //se muestran las apps segun dev/cliente, index, show, etc

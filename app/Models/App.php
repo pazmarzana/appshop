@@ -31,6 +31,11 @@ class App extends Model
 
     public function pricehistories()
     {
-        return $this->hasMany(Wish::class);
+        return $this->hasMany(Pricehistory::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
     }
 }

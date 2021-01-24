@@ -9,12 +9,9 @@
         </div>
     @endif
     </div>
-    {{-- <div class="d-flex flex-column align-items-center col-xs-12 col-sm-8 col-md-6 col-lg-4 col-xl-3">
-        <div class="my-4">
-            <h4>Lista de deseos</h4>
-        </div>
-    </div> --}}
-
+    <div class="d-flex flex-wrap justify-content-center col-12 my-4 ">
+        <h4>Lista de deseos</h4>
+    </div>  
     <div class="my-4 d-flex flex-wrap justify-content-center col-12">
         @if ( ($apps->count()) == 0)
             <div class="my-5 row justify-content-center col-12">
@@ -31,7 +28,7 @@
                     {{ $app->name }}
                 </h5>
                 <p class="precio">
-                    Precio: ${{ $app->price }}
+                    ${{ $app->price }}
                 </p>
                 @if ( Auth::user()->type ==1)
                     <div class="d-flex flex-wrap justify-content-end col-12">

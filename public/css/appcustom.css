@@ -101,6 +101,34 @@ input:valid {
 }
 
 
+:root {
+    --star-size: 1.3rem;
+    --star-color: rgb(240, 240, 240);
+    --star-background: #fc0;
+}
 
+.stars {
+    --percent: calc(var(--rating) / 5 * 100%);
 
+    display: inline-block;
+    font-size: var(--star-size);
+    font-family: Times; 
+    line-height: 1;
 
+}
+
+.stars::before {
+    content: '★★★★★';
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, var(--star-background) 0 var(--percent), var(--star-color) var(--percent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.votos{
+    font-size: 1rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1;
+}

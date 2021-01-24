@@ -22,9 +22,9 @@
                 </div>
             @endif  
         @else  
-            {{-- <div class="my-4 row justify-content-center">
+            <div class="d-flex flex-wrap justify-content-center col-12 my-4 ">
                 <h4>Aplicaciones Adquiridas</h4>
-            </div> --}}
+            </div>   
             @if ( ($apps->count()) == 0)
                 <div class="my-5 row justify-content-center col-12">
                     <h6>Por el momento no ha comprado ninguna aplicacion</h6>
@@ -43,7 +43,7 @@
                     {{ $app->name }}
                 </h5>
                 <p class="precio">
-                    Precio: ${{ $app->price }}
+                    ${{ $app->price }}
                 </p>
                 @guest
                 @else

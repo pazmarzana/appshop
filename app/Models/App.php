@@ -38,4 +38,13 @@ class App extends Model
     {
         return $this->hasMany(Rating::class);
     }
+
+    public function compradores()
+    {
+        return $this->belongsToMany(User::class, 'purchases');
+    }
+    public function deseadores()
+    {
+        return $this->belongsToMany(User::class, 'wishes');
+    }
 }

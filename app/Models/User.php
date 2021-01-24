@@ -59,4 +59,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Rating::class);
     }
+    public function appscompradas()
+    {
+        return $this->belongsToMany(App::class, 'purchases');
+    }
+    public function appsdeseadas()
+    {
+        return $this->belongsToMany(App::class, 'wishes');
+    }
 }

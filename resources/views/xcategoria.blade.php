@@ -28,6 +28,15 @@
                 <p class="precio">
                     ${{ $app->price }}
                 </p>
+                {{-- <p class="">
+                    Stars: {{ $app->ratings_avg_rating }} ({{ $app->ratings_count }})
+                </p> --}}
+                <div class="d-flex flex-wrap justify-content-around align-items-center col-12">
+                    <div class="stars" style="--rating: {{ $app->ratings_avg_rating ? $app->ratings_avg_rating : 0}} ;" aria-label="Rating of this product is {{ $app->ratings_avg_rating ? $app->ratings_avg_rating : 0}} out of 5.">
+                    </div> 
+                    <div class="votos" >({{ $app->ratings_count }})
+                    </div>
+                </div>
                 <div class="d-flex flex-wrap justify-content-end col-12">
                     <a href="{{ route('detalle',['app' => $app->id]) }}" class="btn btn-default btn-sm m-1 small detalle"><i>Ver detalle</i></a>
                 </div>  

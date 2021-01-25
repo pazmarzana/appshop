@@ -25,7 +25,7 @@ class PricehistorySeeder extends Seeder
             ]);
         }
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 0; $i++) {
             DB::table('pricehistories')->insert([
                 'app_id' => App::all()->random()->id,
                 'price' => mt_rand(0, 10000) / 100,

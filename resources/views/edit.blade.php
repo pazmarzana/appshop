@@ -3,7 +3,7 @@
 @section('content')
 <div class="container col-xs-12 col-sm-10 col-md-7 col-lg-6 col-xl-4">
 
-    <form method="POST" action="{{route('apps.update',['app' => $app->id]) }}" class="form-group" enctype="multipart/form-data" >
+    <form method="POST" action="{{route('apps.update',['app' => $app->id]) }}" class="form-group formulario" enctype="multipart/form-data" >
         @method('PATCH')
         @csrf
         @if($errors->any())

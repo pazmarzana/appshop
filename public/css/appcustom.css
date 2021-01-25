@@ -15,11 +15,11 @@
     background-color: rgb(240, 240, 240);
     min-height: 80vh;
 }
-input:out-of-range {
+.formulario input:out-of-range {
     border: 1px solid red;
 }
 
-input:valid {
+.formulario input:valid {
     border: 1px solid green;
 }
 
@@ -100,13 +100,12 @@ input:valid {
     flex-wrap: wrap;
 }
 
-
+/* Estrellas para visualizar el rating */
 :root {
     --star-size: 1.3rem;
     --star-color: rgb(240, 240, 240);
     --star-background: #fc0;
 }
-
 .stars {
     --percent: calc(var(--rating) / 5 * 100%);
 
@@ -116,7 +115,6 @@ input:valid {
     line-height: 1;
 
 }
-
 .stars::before {
     content: '★★★★★';
     letter-spacing: 1px;
@@ -131,4 +129,35 @@ input:valid {
     font-size: 0.9rem;
     font-weight: 400;
     line-height: 1;
+}
+
+/* Estrellas para realizar el rating */
+
+.hide {
+    display: none;
+}
+.star{
+    color: gray;
+}
+.rating {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    font-size: 2.3rem;
+}
+.rating>label {
+    display: inline-block;
+    position: relative;
+    width: 2rem;
+    cursor: pointer;
+}
+.rating>label:hover:before,
+.rating>label:hover~label:before,
+.rating>input.radio-btn:checked~label:before,
+.rating>input.radio-btn:checked~label:before {
+    content: "\2605";
+    color:#fc0;
+    position: absolute;
+    left: 0;
+    top: 0;
 }

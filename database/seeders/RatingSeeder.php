@@ -16,7 +16,7 @@ class RatingSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 600; $i++) {
+        for ($i = 0; $i < 0; $i++) {
             $user_id = User::find(1)->where('users.type', '=', 1)->get()->random()->id;
             $app_id = App::all()->random()->id;
             $rating = Rating::where('user_id', $user_id)

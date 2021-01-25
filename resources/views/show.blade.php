@@ -6,7 +6,7 @@
         <div class="card m-3 col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-6">
             <div class="card-body p-3 d-flex flex-column align-items-center justify-content-center">
                 <img class="imagenGrande m-3" src="{{ $app->image_path }}" alt="{{ $app->image_path }}"/>
-                <h5 class="pt-3 pt-2">
+                <h5 class="pt-3">
                     {{ $app->name }}
                 </h5>
                 <p>

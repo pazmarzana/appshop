@@ -55,6 +55,14 @@
                                     Agregar a la lista de deseos
                                 </button>
                             @endif
+                            @if ( $yacalificada > 0)
+                            @else
+                                @if ( $yacomprada > 0)
+                                <div class="d-flex flex-wrap justify-content-end col-12">
+                                    <a href="{{route('rate',['id' => $app->id])}}" class="btn btn-default btn-sm m-1 small detalle"><i>Calificar</i></a>
+                                </div>   
+                                @endif 
+                            @endif
                         </div>   
                     @endif
                 @endguest

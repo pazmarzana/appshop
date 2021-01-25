@@ -25,6 +25,8 @@ Route::get('/masvotadas', [AppController::class, 'listarmasvotadas'])->name('lis
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('/me/apps', 'App\Http\Controllers\AppController'); //se muestran las apps segun dev/cliente, index, show, etc
     Route::get('/me/listadeseos', [AppController::class, 'listarlistadeseos'])->name('listadeseos');
+    Route::get('/me/rating/rate/{id}', [AppController::class, 'rate'])->name('rate');
+    Route::post('/me/rating/{id}', [AppController::class, 'guardarrate'])->name('guardarrate');
 });
 
 Auth::routes();

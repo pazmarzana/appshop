@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\App;
 use App\Models\Category;
 use App\Models\Pricehistory;
+use App\Models\Rating;
 use App\Models\Purchase;
 use App\Models\Wish;
 use Illuminate\Http\Request;
@@ -262,7 +263,13 @@ class AppController extends Controller
                     ->where('user_id', '=', $user->id)
                     ->get();
                 ($wished->isEmpty()) ? ($yadeseada = -1) : ($yadeseada = $wished[0]->id);
-                return view('ver', compact('app', 'yacomprada', 'yadeseada'));
+                $rated = DB::table('ratings')
+                    ->select('id')
+                    ->where('app_id', '=', $app->id)
+                    ->where('user_id', '=', $user->id)
+                    ->get();
+                ($rated->isEmpty()) ? ($yacalificada = -1) : ($yacalificada = 1);
+                return view('ver', compact('app', 'yacomprada', 'yadeseada', 'yacalificada'));
             }
         } else {
             return view('ver', compact('app'));
@@ -331,6 +338,66 @@ class AppController extends Controller
                 $apps = $user->appsdeseadas()->withCount('ratings')->withAvg('ratings', 'rating')->orderBy('id', 'DESC')->paginate(10);
 
                 return view('listadeseos', compact('apps'));
+            }
+        } else {
+            return back();
+        }
+    }
+
+    public function rate($id)
+    {
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->type == 0) {
+                return back();
+            } else {
+                $app = App::findOrFail($id);
+                $rated = DB::table('ratings')
+                    ->select('id')
+                    ->where('app_id', '=', $app->id)
+                    ->where('user_id', '=', $user->id)
+                    ->get();
+                if ($rated->isEmpty()) {
+                    $app = App::findOrFail($app->id);
+                    return view('rate', compact('app'));
+                } else {
+                    return back();
+                }
+            }
+        } else {
+            return back();
+        }
+    }
+
+    public function guardarrate(Request $request, $id)
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->type == 0) {
+                return back();
+            } else {
+                $app = App::findOrFail($id);
+                $rated = DB::table('ratings')
+                    ->select('id')
+                    ->where('app_id', '=', $app->id)
+                    ->where('user_id', '=', $user->id)
+                    ->get();
+                if ($rated->isEmpty()) {
+                    $rating = new Rating();
+                    $rating->app_id = $app->id;
+                    $rating->user_id = $user->id;
+                    $rating->rating = $request->input('star');
+                    $rating->save();
+                    // dd($rating);
+                    // die();
+
+                    return redirect()->route('apps.index')->with(array(
+                        'message' => 'Gracias por su feedback'
+                    ));
+                } else {
+                    return back();
+                }
             }
         } else {
             return back();

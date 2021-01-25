@@ -17,7 +17,7 @@
                 <a href="{{ route('apps.create') }}" class="btn btn-outline-primary rounded btn-md col-xs-6 col-sm-5 col-md-4 col-lg-3 col-xl-3 m-4">Ingresar nueva aplicacion</a>
             </div>
             @if ( ($apps->count()) == 0)
-                <div class="my-5 row justify-content-center col-12">
+                <div class="my-5 row justify-content-center col-12 my-4">
                     <h6>Por el momento no tienes aplicaciones desarrolladas</h6>
                 </div>
             @endif  

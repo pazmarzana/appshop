@@ -2,13 +2,6 @@
 
 @section('content')
 <div class="contenedor d-flex flex-column justify-content-center align-items-center container-fluid col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 ">
-    <div class="row">
-    @if(session('message'))
-        <div class="alert alert-success col-4 " >
-            {{ session('message') }}
-        </div>
-    @endif
-    </div>
 
     <div class="d-flex flex-column align-items-center col-xs-12 col-sm-8 col-md-6 col-lg-4 col-xl-3">
         <div class="my-4 ">

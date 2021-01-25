@@ -282,33 +282,6 @@ class AppController extends Controller
         return view('listarcategorias', compact('categories'));
     }
 
-    //por ahora no la voy a usar, si es cliente muestro solo las compradas (por categoria)
-    // public function listarxcategoria($id)
-    // {
-    //     if (Auth::check()) {
-    //         $user = Auth::user();
-    //         if ($user->type == 0) {
-    //             return back();
-    //         } else {
-    //             $apps = DB::table('apps')
-    //                 ->join('purchases', 'apps.id', '=', 'purchases.app_id')
-    //                 ->select('apps.id as appId', 'apps.name as appName', 'price', 'image_path', 'developer')
-    //                 ->where('apps.category_id', '=', $id)
-    //                 ->where('purchases.user_id', '=', $user->id)
-    //                 ->orderBy('apps.id', 'DESC')
-    //                 ->paginate(10);
-    //             return view('xcategoria', compact('apps'));
-    //         }
-    //     } else {
-    //         $apps = DB::table('apps')
-    //             ->select('apps.id as appId', 'apps.name as appName', 'price', 'image_path', 'developer')
-    //             ->where('apps.category_id', '=', $id)
-    //             ->orderBy('apps.id', 'DESC')
-    //             ->paginate(10);
-    //         return view('xcategoria', compact('apps'));
-    //     }
-    // }
-
     public function listarxcategoriaTodas($id)
     {
         // $apps = DB::table('apps')
@@ -317,7 +290,6 @@ class AppController extends Controller
         //     ->paginate(10);
         $category = Category::findOrFail($id);
         $apps = $category->apps()->withCount('ratings')->withAvg('ratings', 'rating')->orderBy('id', 'DESC')->paginate(10);
-
         return view('xcategoria', compact('apps'));
     }
 
@@ -334,9 +306,7 @@ class AppController extends Controller
                 //     ->where('wishes.user_id', '=', $user->id)
                 //     ->orderBy('apps.id', 'DESC')
                 //     ->paginate(10);
-
                 $apps = $user->appsdeseadas()->withCount('ratings')->withAvg('ratings', 'rating')->orderBy('id', 'DESC')->paginate(10);
-
                 return view('listadeseos', compact('apps'));
             }
         } else {
@@ -346,7 +316,6 @@ class AppController extends Controller
 
     public function rate($id)
     {
-
         if (Auth::check()) {
             $user = Auth::user();
             if ($user->type == 0) {
@@ -389,15 +358,28 @@ class AppController extends Controller
                     $rating->user_id = $user->id;
                     $rating->rating = $request->input('star');
                     $rating->save();
-                    // dd($rating);
-                    // die();
-
                     return redirect()->route('apps.index')->with(array(
                         'message' => 'Gracias por su feedback'
                     ));
                 } else {
                     return back();
                 }
+            }
+        } else {
+            return back();
+        }
+    }
+
+    public function listarprecioshistoricos($id)
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->type == 0) {
+                $app = App::findOrFail($id);
+                $precios = $app->pricehistories()->orderBy('created_at', 'DESC')->get();
+                return view('precios', compact('precios', 'app'));
+            } else {
+                return back();
             }
         } else {
             return back();

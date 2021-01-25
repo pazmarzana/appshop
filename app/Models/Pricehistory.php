@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pricehistory extends Model
 {
     use HasFactory;
+    protected $fillable = [];
 
     public function app()
     {

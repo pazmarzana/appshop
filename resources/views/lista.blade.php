@@ -3,13 +3,6 @@
 @section('content')
 <div class="contenedor container-fluid col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 justify-content-center">
     <div class="row justify-content-center">
-    @if(session('message'))
-        <div class="alert alert-success col-4 " >
-            {{ session('message') }}
-        </div>
-    @endif
-    </div>
-    <div class="row justify-content-center">
         <div class="d-flex flex-wrap justify-content-end col-12">
             <a href="{{ route('listarmasvotadas') }}" class="btn btn-default btn-sm m-1 small detalle"><i>Ver mas votadas</i></a>
         </div>   
@@ -27,9 +20,6 @@
                 <p class="precio">
                     ${{ $app->price }}
                 </p>
-                {{-- <p class="">
-                    Stars: {{ $app->ratings_avg_rating }} ({{ $app->ratings_count }})
-                </p> --}}
                 <div class="d-flex flex-wrap justify-content-around align-items-center col-12">
                     <div class="stars" style="--rating: {{ $app->ratings_avg_rating ? $app->ratings_avg_rating : 0}} ;" aria-label="Rating of this product is {{ $app->ratings_avg_rating ? $app->ratings_avg_rating : 0}} out of 5.">
                     </div> 

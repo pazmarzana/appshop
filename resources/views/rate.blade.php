@@ -3,9 +3,6 @@
 @section('content')
 <div class="contenedor container-fluid col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 justify-content-center">
 
-    {{-- <div class="d-flex flex-wrap justify-content-center col-12 my-4 ">
-        <h4>{{$app->name}}</h4>
-    </div> --}}
     <div class="card-body p-3 d-flex flex-column align-items-center justify-content-center">
         <img class="imagenGrande m-3" src="{{ $app->image_path }}" alt="{{ $app->image_path }}"/>
         <h5 class="pt-3">

@@ -41,27 +41,26 @@
                                 <button type="button" onClick="deleteDataPurchase({{ $yacomprada }})" class="btn btn-primary  btn-sm m-1 col-12">
                                     Anular compra
                                 </button>
+                                @if ( $yacalificada > 0)
+                                @else
+                                    <div class="d-flex flex-wrap justify-content-end col-12">
+                                        <a href="{{route('rate',['id' => $app->id])}}" class="btn btn-default btn-sm m-1 small detalle"><i>Calificar</i></a>
+                                    </div>   
+                                @endif 
                             @else
                                 <button type="button" onClick="postDataPurchase({{ $app->id}})" class="btn btn-primary  btn-sm m-1 col-12">
                                     Comprar!
                                 </button>
-                            @endif
-                            @if ( $yadeseada > 0)
-                                <button type="button" onClick="deleteDataWish({{ $yadeseada}})" class="btn btn-primary  btn-sm m-1 col-12">
-                                    Quitar de la lista de deseos
-                                </button>
-                            @else
-                                <button type="button" onClick="postDataWish({{ $app->id}})" class="btn btn-primary  btn-sm m-1 col-12">
-                                    Agregar a la lista de deseos
-                                </button>
-                            @endif
-                            @if ( $yacalificada > 0)
-                            @else
-                                @if ( $yacomprada > 0)
-                                <div class="d-flex flex-wrap justify-content-end col-12">
-                                    <a href="{{route('rate',['id' => $app->id])}}" class="btn btn-default btn-sm m-1 small detalle"><i>Calificar</i></a>
-                                </div>   
-                                @endif 
+                                @if ( $yadeseada > 0)
+                                    <button type="button" onClick="deleteDataWish({{ $yadeseada}})" class="btn btn-primary  btn-sm m-1 col-12">
+                                        Quitar de la lista de deseos
+                                    </button>
+                                @else
+                                    <button type="button" onClick="postDataWish({{ $app->id}})" class="btn btn-primary  btn-sm m-1 col-12">
+                                        Agregar a la lista de deseos
+                                    </button>
+                                @endif
+
                             @endif
                         </div>   
                     @endif

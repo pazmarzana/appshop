@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/me/listadeseos', [AppController::class, 'listarlistadeseos'])->name('listadeseos');
     Route::get('/me/rating/rate/{id}', [AppController::class, 'rate'])->name('rate');
     Route::post('/me/rating/{id}', [AppController::class, 'guardarrate'])->name('guardarrate');
+    Route::get('/me/precios/{id}', [AppController::class, 'listarprecioshistoricos'])->name('listarprecioshistoricos');
 });
 
 Auth::routes();

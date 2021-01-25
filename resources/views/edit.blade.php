@@ -23,7 +23,6 @@
             <label for="price">Precio de Venta</label>
             <input type="number" step="0.01" min=0 max=200000000 name="price" class="form-control" value="{{old('price') ? old('price') : $app->price}}" required>
         </div>
-
         <div class="m-4">
             <label for="image_path">Imagen</label>
             <input type="url" name="image_path" class="form-control" value="{{old('image_path') ? old('image_path') : $app->image_path}}" required>

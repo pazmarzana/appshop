@@ -66,11 +66,11 @@
                                 <div class="my-3 col-lg-4 col-md-12 col-sm-12"><legend><h6>Rol del usuario:</h6></legend></div>
                                 <div class="my-3 col-lg-4 col-md-12 col-sm-12">
                                     <label for="Desarrollador" class="">Desarrollador</label>
-                                    <input type="radio" id="Desarrollador" name="type" value="0" {{ old('type') == '0' ? "selected" : "" }}>
+                                    <input type="radio" id="Desarrollador" name="type" value="0" {{ old('type') == '0' ? "checked" : "" }}>
                                 </div>
                                 <div class="my-3 col-lg-4 col-md-12 col-sm-12">
                                     <label for="Cliente" class="">Cliente</label>
-                                    <input type="radio" id="Cliente" name="type" value="1" {{ old('type') == '1' ? "selected" : "" }} checked>
+                                    <input type="radio" id="Cliente" name="type" value="1" {{ old('type') == '1' ? "checked" : "" }} checked>
                                 </div>
                             </fieldset>
                         </div>

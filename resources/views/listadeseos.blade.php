@@ -2,13 +2,6 @@
 
 @section('content')
 <div class="contenedor container-fluid col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 justify-content-center align-items-center ">
-    <div class="row justify-content-center">
-    @if(session('message'))
-        <div class="alert alert-success col-4 " >
-            {{ session('message') }}
-        </div>
-    @endif
-    </div>
     <div class="d-flex flex-wrap justify-content-center col-12 my-4 ">
         <h4>Lista de deseos</h4>
     </div>  
@@ -30,9 +23,6 @@
                 <p class="precio">
                     ${{ $app->price }}
                 </p>
-                {{-- <p class="">
-                    Stars: {{ $app->ratings_avg_rating }} ({{ $app->ratings_count }})
-                </p> --}}
                 <div class="d-flex flex-wrap justify-content-around align-items-center col-12">
                     <div class="stars" style="--rating: {{ $app->ratings_avg_rating ? $app->ratings_avg_rating : 0}} ;" aria-label="Rating of this product is {{ $app->ratings_avg_rating ? $app->ratings_avg_rating : 0}} out of 5.">
                     </div> 

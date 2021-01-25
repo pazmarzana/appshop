@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Purchase;
+use App\Models\Wish;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +43,12 @@ class PurchaseController extends Controller
         $purchase->user_id = $user->id;
         $purchase->app_id = $request->app_id;
         $purchase->save();
+        //la aplicacion que ya fue comprada la saco de la lista de deseos
+
+        Wish::where('app_id', $request->app_id)
+            ->where('user_id', $user->id)
+            ->delete();
+
         return ["Result" => "La compra se ha efectuado correctamente"];
     }
 

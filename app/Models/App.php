@@ -9,6 +9,13 @@ class App extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'price',
+        'image_path',
+        'category_id',
+    ];
+
     public function categoria()
     {
         return $this->belongsTo(Category::class);

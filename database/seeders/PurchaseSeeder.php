@@ -17,7 +17,7 @@ class PurchaseSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 0; $i++) {
+        for ($i = 0; $i < 500; $i++) {
             $user_id = User::find(1)->where('users.type', '=', 1)->get()->random()->id;
             $app_id = App::all()->random()->id;
             $purchase = Purchase::where('user_id', $user_id)

@@ -240,7 +240,7 @@ class AppController extends Controller
 
     public function listarmasvotadas()
     {
-        $apps = App::withCount('ratings')->withAvg('ratings', 'rating')->having('ratings_avg_rating', '>=', 2)->orderBy('ratings_count', 'DESC')->paginate(10);
+        $apps = App::withCount('ratings')->withAvg('ratings', 'rating')->having('ratings_avg_rating', '>=', 2)->orderBy('ratings_count', 'DESC')->orderBy('ratings_avg_rating', 'DESC')->paginate(10);
         return view('listamasvotadas', compact('apps'));
     }
     public function ver(App $app)

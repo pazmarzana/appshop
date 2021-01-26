@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
             UserSeeder::class,
-            AppSeeder::class,
-            WishSeeder::class,
-            PurchaseSeeder::class,
-            PricehistorySeeder::class,
-            RatingSeeder::class,
+            AppSeeder::class, //depende de user-category
+            PurchaseSeeder::class, //depende de user-app
+            WishSeeder::class, //depende de user-app-purchase
+            PricehistorySeeder::class, //depende de app
+            RatingSeeder::class, //depende de user-app-purchase
         ]);
     }
 }

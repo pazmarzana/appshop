@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\App;
 use App\Models\Rating;
+use App\Models\Purchase;
 
 class RatingSeeder extends Seeder
 {
@@ -16,9 +17,10 @@ class RatingSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 0; $i++) {
+        for ($i = 0; $i < 300; $i++) {
             $user_id = User::find(1)->where('users.type', '=', 1)->get()->random()->id;
-            $app_id = App::all()->random()->id;
+            $app_id = Purchase::find(1)->where('purchases.user_id', '=', $user_id)->get()->random()->app_id;
+            // $app_id = App::find(1)->where('apps.id', '=', 1)->get()->random()->id;
             $rating = Rating::where('user_id', $user_id)
                 ->where('app_id', $app_id)
                 ->get();

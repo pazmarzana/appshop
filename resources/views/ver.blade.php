@@ -80,14 +80,14 @@ function mostrarAlerta($texto) {
 async function postDataPurchase($id){
     const logueado = @json(Auth::check());
     if ( logueado ) {
-            const url = "http://127.0.0.1:8000/api/buy";
+            const url = "https://secret-plains-49713.herokuapp.com/api/buy";
             const data = {
                 app_id: $id
             };
             const options = {
                 withCredentials: true, 
                 headers: {
-                        'Access-Control-Allow-Origin': 'http://127.0.0.1:8000/',
+                        'Access-Control-Allow-Origin': 'https://secret-plains-49713.herokuapp.com/',
                         'Content-Type': 'application/json',
                     }
                 };
@@ -109,13 +109,13 @@ async function postDataPurchase($id){
 async function deleteDataPurchase($id){
     const logueado = @json(Auth::check());
     if ( logueado ) {
-            const url = `http://127.0.0.1:8000/api/buy/${$id}`;
+            const url = `https://secret-plains-49713.herokuapp.com/api/buy/${$id}`;
             const data = {
             };
             const options = {
                 withCredentials: true, 
                 headers: {
-                        'Access-Control-Allow-Origin': 'http://127.0.0.1:8000/',
+                        'Access-Control-Allow-Origin': 'https://secret-plains-49713.herokuapp.com/',
                         'Content-Type': 'application/json',
                     }
                 };
@@ -137,14 +137,14 @@ async function deleteDataPurchase($id){
 async function postDataWish($id){
     const logueado = @json(Auth::check());
     if ( logueado ) {
-            const url = "http://127.0.0.1:8000/api/wish";
+            const url = "https://secret-plains-49713.herokuapp.com/api/wish";
             const data = {
                 app_id: $id
             };
             const options = {
                 withCredentials: true, 
                 headers: {
-                        'Access-Control-Allow-Origin': 'http://127.0.0.1:8000/',
+                        'Access-Control-Allow-Origin': 'https://secret-plains-49713.herokuapp.com/',
                         'Content-Type': 'application/json',
                     }
                 };
@@ -166,13 +166,13 @@ async function postDataWish($id){
 async function deleteDataWish($id){
     const logueado = @json(Auth::check());
     if ( logueado ) {
-            const url = `http://127.0.0.1:8000/api/wish/${$id}`;
+            const url = `https://secret-plains-49713.herokuapp.com/api/wish/${$id}`;
             const data = {
             };
             const options = {
                 withCredentials: true, 
                 headers: {
-                        'Access-Control-Allow-Origin': 'http://127.0.0.1:8000/',
+                        'Access-Control-Allow-Origin': 'https://secret-plains-49713.herokuapp.com/',
                         'Content-Type': 'application/json',
                     }
                 };
